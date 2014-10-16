@@ -1,0 +1,41 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="start|top"
+    tools:context=".MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <FrameLayout
+        android:id="@+id/list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="#ff393939">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="#ff2f2f2f">
+
+        <Button
+            android:id="@+id/encounter_endButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/end_button"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/encounter_nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next_button"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</TableLayout>
