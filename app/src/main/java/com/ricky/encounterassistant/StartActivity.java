@@ -8,7 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-
+/*
+ * This activity is the initial activity that loads when the application first starts
+ * It contains only a button that takes it to the Encounter
+ */
 public class StartActivity extends Activity {
     Button startEncounterButton;
 
