@@ -121,7 +121,8 @@ public class CharacterListFragment extends ListFragment {
 
             TextView HPTextView = (TextView) convertView.findViewById(R.id.list_item_character_HP);
             HPTextView.setText(character.getHP() + "/" + character.getMaxHP());
-            if ((character.getHP() < (character.getHP()/character.getMaxHP()))) {
+
+            if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
                 HPTextView.setTextColor(Color.parseColor("#A80000"));
             } else {
                 HPTextView.setTextColor(Color.parseColor("#59B31D"));
