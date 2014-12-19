@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * Created by Ricky on 10/12/2014.
  */
-public class Character implements Serializable {
+public class Character implements Serializable, Comparable<Character> {
     private UUID id;
     private String name;
     private int AC, FO, RE, WI, HP, maxHP, init;
@@ -62,7 +62,7 @@ public class Character implements Serializable {
     }
 
     public void changeAvatar(Avatar avatar) {
-        avatar = avatar;
+        this.avatar = avatar;
     }
 
     public Drawable getAvatar() {
@@ -110,5 +110,16 @@ public class Character implements Serializable {
 
     public int getInit() {
         return init;
+    }
+
+    @Override
+    public int compareTo(Character c) {
+        int cinit = c.getInit();
+        if (this.init == cinit)
+            return 0;
+        else if (this.init > cinit)
+            return 1;
+        else
+            return -1;
     }
 }

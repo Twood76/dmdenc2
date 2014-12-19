@@ -35,7 +35,6 @@ public class CharacterListFragment extends ListFragment {
         setHasOptionsMenu(true);
 
         getActivity().setTitle(R.string.encounter_title);
-        Character character = new Character("Bob", 20, 20, 20, 20, 50, 50, 20, Character.Avatar.ZOMBIE, getActivity());
         encounter = Encounter.getUniqueInstance(getActivity());
         characters = encounter.getCharacters();
 
@@ -66,6 +65,7 @@ public class CharacterListFragment extends ListFragment {
         if (requestCode == REQUEST_CHARACTER) {
             Character character = (Character) data.getSerializableExtra(NewCharacterDialog.EXTRA_CHARACTER);
             Encounter.getUniqueInstance(getActivity()).addCharacter(character);
+            Encounter.getUniqueInstance(getActivity()).sortCharacters();
             characters = Encounter.getUniqueInstance(getActivity()).getCharacters();
             ((CharacterAdapter)getListAdapter()).notifyDataSetChanged();
         }

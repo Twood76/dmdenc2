@@ -1,10 +1,9 @@
 package com.ricky.encounterassistant;
 
 import android.content.Context;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -41,5 +40,9 @@ public class Encounter {
 
     public void addCharacter(Character character) {
         characters.add(character);
+    }
+
+    public void sortCharacters() {
+        Collections.sort(characters);
     }
 }
