@@ -8,20 +8,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.UUID;
+
 /*
  * This activity is the initial activity that loads when the application first starts
- * It contains only a button that takes it to the Encounter
+ * If Player Character button is pressed, go to character screen
+ * If Dungeon Master button is pressed, go to dungeon master screen
  */
 public class StartActivity extends Activity {
-    Button startEncounterButton;
+    Button PCButton;
+    Button DMButton;
+    public static UUID characterID;
+    private static final int REQUEST_CHARACTER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        startEncounterButton = (Button) findViewById(R.id.start_activity_button);
-        startEncounterButton.setOnClickListener(new View.OnClickListener() {
+        PCButton = (Button) findViewById(R.id.start_activity_pcButton);
+        PCButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StartActivity.this, CharacterActivity.class);
+                if(characterID == null) {
+                    Character character = new Character("name", 0, 0, 0, 0, Character.Avatar.SKELETON, StartActivity.this);
+                    characterID = character.getId();
+                    Encounter.getUniqueInstance(StartActivity.this).addCharacter(character);
+                }
+                intent.putExtra(CharacterActivity.EXTRA_CHARACTER_ID, characterID);
+                startActivityForResult(intent, REQUEST_CHARACTER);
+            }
+        });
+
+        DMButton = (Button) findViewById(R.id.start_activity_dmButton);
+        DMButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartActivity.this, CharacterListActivity.class);

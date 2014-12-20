@@ -22,9 +22,6 @@ public class NewCharacterDialog extends DialogFragment {
     private EditText healthEditText;
     private EditText initEditText;
     private EditText acEditText;
-    private EditText foEditText;
-    private EditText reEditText;
-    private EditText wiEditText;
 
     @NonNull
     @Override
@@ -36,9 +33,6 @@ public class NewCharacterDialog extends DialogFragment {
         healthEditText = (EditText) view.findViewById(R.id.new_character_healthEditText);
         initEditText = (EditText) view.findViewById(R.id.new_character_initEditText);
         acEditText = (EditText) view.findViewById(R.id.new_character_acEditText);
-        foEditText = (EditText) view.findViewById(R.id.new_character_foEditText);
-        reEditText = (EditText) view.findViewById(R.id.new_character_reEditText);
-        wiEditText = (EditText) view.findViewById(R.id.new_character_wiEditText);
 
         final AlertDialog dialog = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK)
                 .setView(view)
@@ -79,18 +73,15 @@ public class NewCharacterDialog extends DialogFragment {
          * If all fields were filled out, then create a new character object with all the data from
          * the fields and put it into an intent as an extra and return to target
          */
-        if (nameEditText.getText().toString().equals("")|| acEditText.getText().toString().equals("") || foEditText.getText().toString().equals("")
-                || reEditText.getText().toString().equals("") || wiEditText.getText().toString().equals("")|| healthEditText.getText().toString().equals("")
+        if (nameEditText.getText().toString().equals("")|| acEditText.getText().toString().equals("") || healthEditText.getText().toString().equals("")
                 || initEditText.getText().toString().equals("")) {
             Toast toast = Toast.makeText(getActivity(), "Fill out all fields before submitting", Toast.LENGTH_LONG);
             toast.show();
             return false;
         }
         Character character = new Character(nameEditText.getText().toString(), Integer.parseInt(acEditText.getText().toString()),
-                Integer.parseInt(foEditText.getText().toString()), Integer.parseInt(reEditText.getText().toString()),
-                Integer.parseInt(wiEditText.getText().toString()), Integer.parseInt(healthEditText.getText().toString()),
-                Integer.parseInt(healthEditText.getText().toString()), Integer.parseInt(initEditText.getText().toString()),
-                Character.Avatar.SKELETON, getActivity());
+                Integer.parseInt(healthEditText.getText().toString()), Integer.parseInt(healthEditText.getText().toString()),
+                Integer.parseInt(initEditText.getText().toString()), Character.Avatar.SKELETON, getActivity());
         Intent intent = new Intent();
         intent.putExtra(EXTRA_CHARACTER, character);
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);

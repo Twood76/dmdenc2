@@ -1,15 +1,11 @@
 package com.ricky.encounterassistant;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,9 +22,6 @@ public class CharacterActivity extends Activity {
     private TextView initiativeTextView;
     private TextView hpTextView;
     private TextView acTextView;
-    private TextView foTextView;
-    private TextView reTextView;
-    private TextView wiTextView;
     private ImageView avatarImageView;
 
     @Override
@@ -49,23 +42,14 @@ public class CharacterActivity extends Activity {
 
         hpTextView = (TextView) findViewById(R.id.character_hp);
         hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
-        if ((character.getHP() < (character.getHP()/character.getMaxHP()))) {
+        if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
             hpTextView.setTextColor(Color.parseColor("#A80000"));
         } else {
             hpTextView.setTextColor(Color.parseColor("#59B31D"));
         }
 
-        acTextView = (TextView) findViewById(R.id.character_ac);
+        acTextView = (TextView) findViewById(R.id.character_acTextView);
         acTextView.setText("Armor Class: " + character.getAC());
-
-        foTextView = (TextView) findViewById(R.id.character_fo);
-        foTextView.setText("Fortitude: " + character.getFO());
-
-        reTextView = (TextView) findViewById(R.id.character_re);
-        reTextView.setText("Reflex: " + character.getRE());
-
-        wiTextView = (TextView) findViewById(R.id.character_wi);
-        wiTextView.setText("Will: " + character.getWI());
 
         avatarImageView =(ImageView) findViewById(R.id.character_avatarImageView);
         avatarImageView.setImageDrawable(character.getAvatar());

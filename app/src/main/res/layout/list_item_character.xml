@@ -25,7 +25,8 @@
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/list_item_character_avatarImageView"
-        android:paddingRight="@dimen/activity_horizontal_margin" />
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,59 +36,28 @@
         android:layout_alignBottom="@+id/list_item_character_nameTextView"
         android:layout_alignParentRight="true"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textColor="#ff000000" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AC"
-        android:id="@+id/list_item_character_AC"
+        android:id="@+id/list_item_character_acTextView"
         android:layout_below="@+id/list_item_character_nameTextView"
         android:layout_toRightOf="@+id/list_item_character_avatarImageView"
         android:layout_toEndOf="@+id/list_item_character_avatarImageView"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textColor="#ff000000" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FO"
-        android:id="@+id/list_item_character_FO"
-        android:layout_below="@+id/list_item_character_nameTextView"
-        android:layout_toRightOf="@+id/list_item_character_AC"
-        android:layout_toEndOf="@+id/list_item_character_AC"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textColor="#ff000000" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RE"
-        android:id="@+id/list_item_character_RE"
-        android:layout_below="@+id/list_item_character_nameTextView"
-        android:layout_toRightOf="@+id/list_item_character_FO"
-        android:layout_toEndOf="@+id/list_item_character_FO"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textColor="#ff000000" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WI"
-        android:id="@+id/list_item_character_WI"
-        android:layout_below="@+id/list_item_character_initiativeTextView"
-        android:layout_toRightOf="@+id/list_item_character_RE"
-        android:layout_toEndOf="@+id/list_item_character_RE"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textColor="#ff000000"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HP"
-        android:id="@+id/list_item_character_HP"
+        android:id="@+id/list_item_character_hpTextView"
         android:textStyle="bold"
-        android:layout_above="@+id/list_item_character_WI"
+        android:layout_above="@+id/list_item_character_acTextView"
         android:layout_toRightOf="@+id/list_item_character_nameTextView"
         android:layout_toEndOf="@+id/list_item_character_nameTextView"
         android:textColor="#ff000000" />

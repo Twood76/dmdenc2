@@ -78,7 +78,7 @@ public class CharacterListFragment extends ListFragment {
 
         Intent intent = new Intent(getActivity(), CharacterActivity.class);
         intent.putExtra(CharacterActivity.EXTRA_CHARACTER_ID, character.getId());
-        startActivityForResult(intent, REQUEST_CHARACTER);
+        startActivity(intent);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class CharacterListFragment extends ListFragment {
             TextView nameTextView = (TextView) convertView.findViewById(R.id.list_item_character_nameTextView);
             nameTextView.setText(character.getName());
 
-            TextView HPTextView = (TextView) convertView.findViewById(R.id.list_item_character_HP);
+            TextView HPTextView = (TextView) convertView.findViewById(R.id.list_item_character_hpTextView);
             HPTextView.setText(character.getHP() + "/" + character.getMaxHP());
 
             if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
@@ -131,17 +131,8 @@ public class CharacterListFragment extends ListFragment {
             TextView initiativeTextView = (TextView) convertView.findViewById(R.id.list_item_character_initiativeTextView);
             initiativeTextView.setText("Init: " + character.getInit());
 
-            TextView ACTextView = (TextView) convertView.findViewById(R.id.list_item_character_AC);
+            TextView ACTextView = (TextView) convertView.findViewById(R.id.list_item_character_acTextView);
             ACTextView.setText("AC: " + character.getAC());
-
-            TextView FOTextView = (TextView) convertView.findViewById(R.id.list_item_character_FO);
-            FOTextView.setText("Fort: " + character.getFO());
-
-            TextView RETextView = (TextView) convertView.findViewById(R.id.list_item_character_RE);
-            RETextView.setText("Reflex: " + character.getRE());
-
-            TextView WITextView = (TextView) convertView.findViewById(R.id.list_item_character_WI);
-            WITextView.setText("Will: " + character.getWI());
 
             ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.list_item_character_avatarImageView);
             avatarImageView.setImageDrawable(character.getAvatar());

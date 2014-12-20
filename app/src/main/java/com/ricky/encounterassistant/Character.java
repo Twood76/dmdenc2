@@ -22,16 +22,12 @@ public class Character implements Serializable, Comparable<Character> {
     }
     private Avatar avatar;
 
-    public Character(String name, int AC, int FO, int RE,
-                     int WI, int HP, int maxHP, int init, Avatar avatar,
+    public Character(String name, int AC, int HP, int maxHP, int init, Avatar avatar,
                      Context context) {
 
         this.id = UUID.randomUUID();
         this.name = name;
         this.AC = AC;
-        this.FO = FO;
-        this.RE = RE;
-        this.WI = WI;
         this.HP = HP;
         this.maxHP = maxHP;
         this.init = init;
@@ -86,18 +82,6 @@ public class Character implements Serializable, Comparable<Character> {
 
     public int getAC() {
         return AC;
-    }
-
-    public int getFO() {
-        return FO;
-    }
-
-    public int getRE() {
-        return RE;
-    }
-
-    public int getWI() {
-        return WI;
     }
 
     public int getHP() {
