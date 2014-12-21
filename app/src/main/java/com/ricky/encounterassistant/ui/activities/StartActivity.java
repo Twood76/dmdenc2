@@ -1,4 +1,4 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.models.Character;
+import com.ricky.encounterassistant.models.Encounter;
 
 import java.util.UUID;
 

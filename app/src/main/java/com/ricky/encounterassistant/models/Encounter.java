@@ -1,4 +1,4 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.models;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class Encounter {
     private static Encounter uniqueInstance;
-    private ArrayList<Character> characters;
+    private ArrayList<com.ricky.encounterassistant.models.Character> characters;
     private Context appContext;
 
     public Encounter(Context c) {

@@ -1,4 +1,4 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.ui.dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.models.Character;
 
 /**
  * Created by Ricky on 10/14/2014.

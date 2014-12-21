@@ -1,9 +1,9 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.models;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Parcel;
-import android.os.Parcelable;
+
+import com.ricky.encounterassistant.R;
 
 import java.io.Serializable;
 import java.util.UUID;

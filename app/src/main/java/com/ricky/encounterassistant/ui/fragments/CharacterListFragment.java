@@ -1,4 +1,4 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.models.Character;
+import com.ricky.encounterassistant.models.Encounter;
+import com.ricky.encounterassistant.ui.dialogs.NewCharacterDialog;
+import com.ricky.encounterassistant.ui.activities.CharacterActivity;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,12 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.ui.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+
+import com.ricky.encounterassistant.R;
+import com.ricky.encounterassistant.ui.fragments.CharacterListFragment;
 
 /**
  * Created by Ricky on 8/3/2014.

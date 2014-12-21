@@ -1,4 +1,4 @@
-package com.ricky.encounterassistant;
+package com.ricky.encounterassistant.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.models.Encounter;
+
 import java.util.UUID;
 
 
@@ -16,7 +19,7 @@ public class CharacterActivity extends Activity {
     private static final String TAG = "CharacterActivity";
     public static final String EXTRA_CHARACTER_ID = "com.riyu.encounterassistant.character_id";
 
-    Character character;
+    com.ricky.encounterassistant.models.Character character;
 
     private TextView nameTextView;
     private TextView initiativeTextView;
