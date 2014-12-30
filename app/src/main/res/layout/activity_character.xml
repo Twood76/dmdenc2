@@ -78,4 +78,25 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/character_equipmentTitleTextView"
+        android:text="Equipment >"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textColor="#ff000000"
+        android:layout_below="@id/character_acTextView"
+        style="?android:listSeparatorTextViewStyle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_equipmentTitleTextView"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textColor="#ff000000"
+        android:text="None"
+        android:id="@+id/character_equipmentShownTextView"/>
+
+
+
 </RelativeLayout>

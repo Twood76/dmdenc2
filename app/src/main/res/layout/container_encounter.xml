@@ -25,17 +25,9 @@
         android:background="#ff2f2f2f">
 
         <Button
-            android:id="@+id/encounter_endButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/end_button"
-            android:layout_weight="1"/>
-
-        <Button
             android:id="@+id/encounter_nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next_button"
-            android:layout_weight="1"/>
+            android:text="@string/next_button" />
     </LinearLayout>
 </TableLayout>

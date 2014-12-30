@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import com.ricky.encounterassistant.R;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,7 +16,8 @@ import java.util.UUID;
 public class Character implements Serializable, Comparable<Character> {
     private UUID id;
     private String name;
-    private int AC, FO, RE, WI, HP, maxHP, init;
+    private int AC, HP, maxHP, init;
+    private List<Equipment> equipment;
     private boolean downed;
     private Context context;
     public enum Avatar {
@@ -34,6 +37,8 @@ public class Character implements Serializable, Comparable<Character> {
         this.avatar = avatar;
         this.context = context;
         this.downed = false;
+
+        this.equipment = new ArrayList<Equipment>();
     }
 
     public void decreaseHP(int amount) {
@@ -94,6 +99,18 @@ public class Character implements Serializable, Comparable<Character> {
 
     public int getInit() {
         return init;
+    }
+
+    public void addEquipment(Equipment item) {
+        equipment.add(item);
+    }
+
+    public void removeEquipment(Equipment item) {
+        equipment.remove(item);
+    }
+
+    public List<Equipment> getEquipment() {
+        return equipment;
     }
 
     @Override

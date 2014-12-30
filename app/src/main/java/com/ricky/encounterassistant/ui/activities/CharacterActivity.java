@@ -26,6 +26,8 @@ public class CharacterActivity extends Activity {
     private TextView hpTextView;
     private TextView acTextView;
     private ImageView avatarImageView;
+    private TextView equipmentTitleTextView;
+    private TextView equipmentShownTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class CharacterActivity extends Activity {
         avatarImageView =(ImageView) findViewById(R.id.character_avatarImageView);
         avatarImageView.setImageDrawable(character.getAvatar());
 
+        equipmentTitleTextView = (TextView) findViewById(R.id.character_equipmentTitleTextView);
+
+        equipmentShownTextView = (TextView) findViewById(R.id.character_equipmentShownTextView);
     }
 
     @Override
@@ -72,6 +77,10 @@ public class CharacterActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        if (id == R.id.action_edit) {
+            //startActivityForResult(new Intent(CharacterActivity.this, ));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
