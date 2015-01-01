@@ -61,7 +61,6 @@ public class CharacterEditActivity extends Activity {
 
                 setResult(RESULT_OK, intent);
                 finish();
-                return;
             }
         });
     }

@@ -102,6 +102,7 @@ public class CharacterActivity extends Activity {
                 character.setMaxHP(data.getIntExtra(CharacterEditActivity.EXTRA_MAX_HEALTH, 0));
                 character.setInit(data.getIntExtra(CharacterEditActivity.EXTRA_INITIATIVE, 0));
                 updateCharacterInfo();
+                Encounter.getUniqueInstance(this).sortCharacters();
                 return;
             }
         } if (resultCode == RESULT_CANCELED) {
