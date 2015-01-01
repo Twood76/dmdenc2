@@ -18,10 +18,10 @@ import java.util.UUID;
  * Created by Ricky on 12/29/2014.
  */
 public class CharacterEditActivity extends Activity {
-    public static final String EXTRA_NAME = "com.riyu.encounterassistant.name";
-    public static final String EXTRA_MAX_HEALTH = "com.riyu.encounterassistant.maxhealth";
-    public static final String EXTRA_INITIATIVE = "com.riyu.encounterassistant.initiative";
-    public static final String EXTRA_AC = "com.riyu.encounterassistant.ac";
+    public static final String EXTRA_NAME = "com.ricky.encounterassistant.name";
+    public static final String EXTRA_MAX_HEALTH = "com.ricky.encounterassistant.maxhealth";
+    public static final String EXTRA_INITIATIVE = "com.ricky.encounterassistant.initiative";
+    public static final String EXTRA_AC = "com.ricky.encounterassistant.ac";
 
     private EditText nameEditText;
     private EditText maxHealthEditText;
@@ -33,6 +33,7 @@ public class CharacterEditActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_edit);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         UUID id = (UUID) getIntent().getSerializableExtra(CharacterActivity.EXTRA_CHARACTER_ID);
         com.ricky.encounterassistant.models.Character character = Encounter.getUniqueInstance(this).getCharacter(id);
@@ -72,6 +73,11 @@ public class CharacterEditActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 
