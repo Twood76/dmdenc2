@@ -78,6 +78,24 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:textStyle="bold" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_hp"
+        android:layout_alignLeft="@id/character_hp"
+        android:text="-"
+        android:textSize="@dimen/large_text_size"
+        android:id="@+id/character_hpMinusButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_hp"
+        android:layout_alignRight="@id/character_hp"
+        android:text="+"
+        android:textSize="@dimen/large_text_size"
+        android:id="@+id/character_hpPlusButton" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +32,8 @@ public class CharacterActivity extends Activity {
     private ImageView avatarImageView;
     private TextView equipmentTitleTextView;
     private TextView equipmentShownTextView;
+    private Button hpMinusButton;
+    private Button hpPlusButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +52,7 @@ public class CharacterActivity extends Activity {
         initiativeTextView.setText("Initiative: " + character.getInit());
 
         hpTextView = (TextView) findViewById(R.id.character_hp);
-        hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
-        if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
-            hpTextView.setTextColor(Color.parseColor("#A80000"));
-        } else {
-            hpTextView.setTextColor(Color.parseColor("#59B31D"));
-        }
+        displayHP();
 
         acTextView = (TextView) findViewById(R.id.character_acTextView);
         acTextView.setText("Armor Class: " + character.getAC());
@@ -64,6 +63,33 @@ public class CharacterActivity extends Activity {
         equipmentTitleTextView = (TextView) findViewById(R.id.character_equipmentTitleTextView);
 
         equipmentShownTextView = (TextView) findViewById(R.id.character_equipmentShownTextView);
+
+        hpMinusButton = (Button) findViewById(R.id.character_hpMinusButton);
+        hpMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                character.decreaseHP(1);
+                displayHP();
+            }
+        });
+
+        hpPlusButton = (Button) findViewById(R.id.character_hpPlusButton);
+        hpPlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                character.increaseHP(1);
+                displayHP();
+            }
+        });
+    }
+
+    private void displayHP() {
+        hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
+        if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
+            hpTextView.setTextColor(Color.parseColor("#A80000"));
+        } else {
+            hpTextView.setTextColor(Color.parseColor("#59B31D"));
+        }
     }
 
     @Override
@@ -113,12 +139,7 @@ public class CharacterActivity extends Activity {
     public void updateCharacterInfo() {
         nameTextView.setText(character.getName());
         initiativeTextView.setText("Initiative: " + character.getInit());
-        hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
-        if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
-            hpTextView.setTextColor(Color.parseColor("#A80000"));
-        } else {
-            hpTextView.setTextColor(Color.parseColor("#59B31D"));
-        }
+        displayHP();
         acTextView.setText("Armor Class: " + character.getAC());
         avatarImageView.setImageDrawable(character.getAvatar());
     }
