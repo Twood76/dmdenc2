@@ -24,6 +24,10 @@
             android:name=".ui.activities.CharacterActivity"
             android:label="@string/title_activity_character" >
         </activity>
+        <activity
+            android:name=".ui.activities.CharacterEditActivity"
+            android:label="@string/title_activity_character_edit" >
+        </activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.UUID;
 
 /**
@@ -40,6 +41,21 @@ public class Encounter {
 
     public void addCharacter(Character character) {
         characters.add(character);
+    }
+
+    public void removeCharacter(UUID id) {
+        Iterator<Character> itr = characters.iterator();
+        while(itr.hasNext()) {
+            Character character = itr.next();
+            if(character.getId() == id) {
+                characters.remove(character);
+                return;
+            }
+        }
+    }
+
+    public void removeCharacter(Character character) {
+        characters.remove(character);
     }
 
     public void sortCharacters() {

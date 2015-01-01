@@ -14,5 +14,6 @@
     <string name="character_avatar_description">Character Avatar</string>
     <string name="create_button">Create</string>
     <string name="cancel_button">Cancel</string>
+    <string name="title_activity_character_edit">Edit Character</string>
 
 </resources>

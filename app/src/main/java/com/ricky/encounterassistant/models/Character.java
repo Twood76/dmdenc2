@@ -81,6 +81,10 @@ public class Character implements Serializable, Comparable<Character> {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -89,16 +93,32 @@ public class Character implements Serializable, Comparable<Character> {
         return AC;
     }
 
+    public void setAC(int AC) {
+        this.AC = AC;
+    }
+
     public int getHP() {
         return HP;
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
     }
 
     public int getMaxHP() {
         return maxHP;
     }
 
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
+
     public int getInit() {
         return init;
+    }
+
+    public void setInit(int init) {
+        this.init = init;
     }
 
     public void addEquipment(Equipment item) {
