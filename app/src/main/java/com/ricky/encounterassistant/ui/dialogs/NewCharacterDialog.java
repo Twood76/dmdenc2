@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.models.Avatar;
 import com.ricky.encounterassistant.models.Character;
 
 /**
@@ -84,7 +85,7 @@ public class NewCharacterDialog extends DialogFragment {
         }
         Character character = new Character(nameEditText.getText().toString(), Integer.parseInt(acEditText.getText().toString()),
                 Integer.parseInt(healthEditText.getText().toString()), Integer.parseInt(healthEditText.getText().toString()),
-                Integer.parseInt(initEditText.getText().toString()), Character.Avatar.SKELETON, getActivity());
+                Integer.parseInt(initEditText.getText().toString()), new Avatar(getActivity(), "skeleton"), getActivity());
         Intent intent = new Intent();
         intent.putExtra(EXTRA_CHARACTER, character);
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);

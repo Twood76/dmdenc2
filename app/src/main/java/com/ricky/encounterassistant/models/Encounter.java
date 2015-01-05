@@ -1,6 +1,7 @@
 package com.ricky.encounterassistant.models;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import java.util.UUID;
  * Created by Ricky on 10/12/2014.
  */
 public class Encounter {
+    private static final String TAG = "Encounter";
     private static Encounter uniqueInstance;
     private ArrayList<com.ricky.encounterassistant.models.Character> characters;
     private Context appContext;
@@ -40,7 +42,17 @@ public class Encounter {
     }
 
     public void addCharacter(Character character) {
+        Log.d(TAG, character.getId().toString());
         characters.add(character);
+    }
+
+    public boolean hasCharacter(UUID id) {
+        for(Character character : characters) {
+            if(character.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removeCharacter(UUID id) {
@@ -59,6 +71,6 @@ public class Encounter {
     }
 
     public void sortCharacters() {
-        Collections.sort(characters);
+        Collections.sort(characters, Collections.reverseOrder());
     }
 }

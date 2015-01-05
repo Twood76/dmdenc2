@@ -13,13 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.databases.CharacterDB;
 import com.ricky.encounterassistant.models.*;
+import com.ricky.encounterassistant.models.Character;
 
 import java.util.UUID;
 
 
 public class CharacterActivity extends Activity {
     private static final String TAG = "CharacterActivity";
+
     public static final String EXTRA_CHARACTER_ID = "com.riyu.encounterassistant.character_id";
     private static final int REQUEST_CHARACTER_EDIT = 1;
 
@@ -34,6 +37,8 @@ public class CharacterActivity extends Activity {
     private TextView equipmentShownTextView;
     private Button hpMinusButton;
     private Button hpPlusButton;
+    private Button hpMinus10Button;
+    private Button hpPlus10Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +48,16 @@ public class CharacterActivity extends Activity {
         Intent intent = getIntent();
         UUID characterId = (UUID) intent.getSerializableExtra(EXTRA_CHARACTER_ID);
 
-        character = Encounter.getUniqueInstance(this).getCharacter(characterId);
+        character = Encounter.getUniqueInstance(CharacterActivity.this).getCharacter(characterId);
+
+        Log.d(TAG, characterId.toString());
 
         nameTextView = (TextView) findViewById(R.id.character_nameTextView);
-        nameTextView.setText(character.getName());
-
         initiativeTextView = (TextView) findViewById(R.id.character_initiativeTextView);
-        initiativeTextView.setText("Initiative: " + character.getInit());
-
         hpTextView = (TextView) findViewById(R.id.character_hp);
-        displayHP();
-
         acTextView = (TextView) findViewById(R.id.character_acTextView);
-        acTextView.setText("Armor Class: " + character.getAC());
-
         avatarImageView =(ImageView) findViewById(R.id.character_avatarImageView);
-        avatarImageView.setImageDrawable(character.getAvatar());
+        updateCharacterInfo();
 
         equipmentTitleTextView = (TextView) findViewById(R.id.character_equipmentTitleTextView);
 
@@ -69,7 +68,8 @@ public class CharacterActivity extends Activity {
             @Override
             public void onClick(View view) {
                 character.decreaseHP(1);
-                displayHP();
+                updateCharacterInfo();
+                syncCharacterToDatabase();
             }
         });
 
@@ -78,18 +78,52 @@ public class CharacterActivity extends Activity {
             @Override
             public void onClick(View view) {
                 character.increaseHP(1);
-                displayHP();
+                updateCharacterInfo();
+                syncCharacterToDatabase();
+            }
+        });
+
+        hpMinus10Button = (Button) findViewById(R.id.character_hpMinus10Button);
+        hpMinus10Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                character.decreaseHP(10);
+                updateCharacterInfo();
+                syncCharacterToDatabase();
+            }
+        });
+
+        hpPlus10Button = (Button) findViewById(R.id.character_hpPlus10Button);
+        hpPlus10Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                character.increaseHP(10);
+                updateCharacterInfo();
+                syncCharacterToDatabase();
             }
         });
     }
 
-    private void displayHP() {
+    private void updateCharacterInfo() {
+        nameTextView.setText(character.getName());
+        initiativeTextView.setText("Initiative: " + character.getInit());
         hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
-        if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
+        if(character.getHP() <= 0) {
+            hpTextView.setTextColor(Color.parseColor("#520000"));
+        } else if ((character.getHP() <= (character.getMaxHP()/2))) {
             hpTextView.setTextColor(Color.parseColor("#A80000"));
         } else {
             hpTextView.setTextColor(Color.parseColor("#59B31D"));
         }
+        acTextView.setText("Armor Class: " + character.getAC());
+        avatarImageView.setImageDrawable(character.getAvatarDrawable());
+    }
+
+    private void syncCharacterToDatabase() {
+        CharacterDB database = new CharacterDB(getApplicationContext());
+        database.open();
+        database.insertUpdateCharacter(character);
+        database.close();
     }
 
     @Override
@@ -126,21 +160,21 @@ public class CharacterActivity extends Activity {
                 character.setName(data.getStringExtra(CharacterEditActivity.EXTRA_NAME));
                 character.setAC(data.getIntExtra(CharacterEditActivity.EXTRA_AC, 0));
                 character.setMaxHP(data.getIntExtra(CharacterEditActivity.EXTRA_MAX_HEALTH, 0));
+                int hp = data.getIntExtra(CharacterEditActivity.EXTRA_HEALTH, 0);
+                if(hp > character.getMaxHP()) {
+                    hp = character.getMaxHP();
+                } else if(hp < 0) {
+                    hp = 0;
+                }
+                character.setHP(hp);
                 character.setInit(data.getIntExtra(CharacterEditActivity.EXTRA_INITIATIVE, 0));
                 updateCharacterInfo();
+                syncCharacterToDatabase();
                 Encounter.getUniqueInstance(this).sortCharacters();
                 return;
             }
         } if (resultCode == RESULT_CANCELED) {
             Log.d(TAG, "cancelled");
         }
-    }
-
-    public void updateCharacterInfo() {
-        nameTextView.setText(character.getName());
-        initiativeTextView.setText("Initiative: " + character.getInit());
-        displayHP();
-        acTextView.setText("Armor Class: " + character.getAC());
-        avatarImageView.setImageDrawable(character.getAvatar());
     }
 }

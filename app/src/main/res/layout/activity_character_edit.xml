@@ -1,113 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<GridLayout
+<LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="@dimen/activity_horizontal_margin"
     android:background="#ff404040">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:textColor="#ff000000" />
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/character_edit_nameEditText"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:textColor="#ffc0c0c0"
-        android:textCursorDrawable = "@null"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Name"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:textColor="#ff000000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Max Health"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:textColor="#ff000000" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/character_edit_nameEditText"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:textColor="#ffc0c0c0"
+            android:textCursorDrawable = "@null"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/character_edit_maxHealthEditText"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:textColor="#ffffffff"
-        android:textCursorDrawable = "@null"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Max Health"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:textColor="#ff000000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Initiative"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:textColor="#ff000000" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/character_edit_maxHealthEditText"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable = "@null"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/character_edit_initiativeEditText"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:textColor="#ffffffff"
-        android:textCursorDrawable = "@null"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Health"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:textColor="#ff000000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Armor Class"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:textColor="#ff000000" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/character_edit_healthEditText"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable = "@null"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/character_edit_acEditText"
-        android:layout_row="3"
-        android:layout_column="1"
-        android:textColor="#ffffffff"
-        android:textCursorDrawable = "@null"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Initiative"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:textColor="#ff000000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:text="Avatar"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:textColor="#ff000000" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/character_edit_initiativeEditText"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable = "@null"/>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/character_edit_avatarSpinner"
-        android:layout_row="4"
-        android:layout_column="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Armor Class"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:textColor="#ff000000" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/character_edit_acEditText"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable = "@null"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="Avatar"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:textColor="#ff000000" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/character_edit_avatarSpinner"
+            android:layout_row="5"
+            android:layout_column="1"/>
+    </GridLayout>
 
     <Button
-        android:layout_row="5"
+        android:layout_row="6"
         android:layout_column="1"
         android:text="Confirm"
-        android:id="@+id/character_edit_confirmButton"/>
+        android:id="@+id/character_edit_confirmButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</GridLayout>
+</LinearLayout>

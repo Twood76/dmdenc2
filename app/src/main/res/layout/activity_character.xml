@@ -96,6 +96,24 @@
         android:textSize="@dimen/large_text_size"
         android:id="@+id/character_hpPlusButton" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_hpMinusButton"
+        android:layout_alignLeft="@id/character_hp"
+        android:text="- 10"
+        android:textSize="@dimen/large_text_size"
+        android:id="@+id/character_hpMinus10Button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_hpPlusButton"
+        android:layout_alignRight="@id/character_hp"
+        android:text="+ 10"
+        android:textSize="@dimen/large_text_size"
+        android:id="@+id/character_hpPlus10Button" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

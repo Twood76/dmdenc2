@@ -141,7 +141,7 @@ public class CharacterListFragment extends ListFragment {
             ACTextView.setText("AC: " + character.getAC());
 
             ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.list_item_character_avatarImageView);
-            avatarImageView.setImageDrawable(character.getAvatar());
+            avatarImageView.setImageDrawable(character.getAvatarDrawable());
 
             return convertView;
         }

@@ -20,19 +20,16 @@ public class Character implements Serializable, Comparable<Character> {
     private List<Equipment> equipment;
     private boolean downed;
     private Context context;
-    public enum Avatar {
-        SKELETON, ZOMBIE
-    }
     private Avatar avatar;
 
-    public Character(String name, int AC, int HP, int maxHP, int init, Avatar avatar,
+    public Character(String name, int ac, int maxHp, int hp, int init, Avatar avatar,
                      Context context) {
 
         this.id = UUID.randomUUID();
         this.name = name;
-        this.AC = AC;
-        this.HP = HP;
-        this.maxHP = maxHP;
+        this.AC = ac;
+        this.HP = hp;
+        this.maxHP = maxHp;
         this.init = init;
         this.avatar = avatar;
         this.context = context;
@@ -47,6 +44,9 @@ public class Character implements Serializable, Comparable<Character> {
 
         if(HP <= 0) {
             downed = true;
+            if(HP < (-1) * maxHP) {
+                HP = (-1) * maxHP;
+            }
         }
     }
 
@@ -66,15 +66,12 @@ public class Character implements Serializable, Comparable<Character> {
         this.avatar = avatar;
     }
 
-    public Drawable getAvatar() {
-        switch (avatar) {
-            case SKELETON:
-                return context.getResources().getDrawable(R.drawable.skull);
-            case ZOMBIE:
-                return context.getResources().getDrawable(R.drawable.zombo);
-            default:
-                return context.getResources().getDrawable(R.drawable.skull);
-        }
+    public String getAvatarString() {
+        return avatar.toString();
+    }
+
+    public Drawable getAvatarDrawable() {
+        return avatar.toDrawable();
     }
 
     public String getName() {
@@ -87,6 +84,10 @@ public class Character implements Serializable, Comparable<Character> {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public int getAC() {
@@ -142,5 +143,10 @@ public class Character implements Serializable, Comparable<Character> {
             return 1;
         else
             return -1;
+    }
+
+    @Override
+    public String toString() {
+        return name + " init: " + init + " ac: " + AC + " max: " + maxHP + " hp: " + HP;
     }
 }
