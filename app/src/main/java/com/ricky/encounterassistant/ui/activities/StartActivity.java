@@ -16,6 +16,7 @@ import com.ricky.encounterassistant.models.Avatar;
 import com.ricky.encounterassistant.models.Character;
 import com.ricky.encounterassistant.models.Encounter;
 
+import java.util.List;
 import java.util.UUID;
 
 /*
@@ -37,14 +38,17 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Character character;
-
+        // Get device's character
         characterId = getIdFromPreferences();
-        character = getCharacterFromDatabase(characterId);
-        Log.d(TAG, character.getId().toString());
-        Encounter.getUniqueInstance(StartActivity.this).addCharacter(character);
-        Log.d(TAG, "Character found in encounter: "
-                + Boolean.toString(Encounter.getUniqueInstance(StartActivity.this).hasCharacter(characterId)));
+        getCharacterFromDatabase(characterId);
+
+        // Set up encounter
+        CharacterDB db = new CharacterDB(getApplicationContext());
+        db.open();
+        List<Character> list = db.extractAllCharacter();
+        Encounter.getUniqueInstance(getApplicationContext()).addCharacterList(list);
+        Encounter.getUniqueInstance(getApplicationContext()).sortCharacters();
+        db.close();
 
         PCButton = (Button) findViewById(R.id.start_activity_pcButton);
         PCButton.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +76,8 @@ public class StartActivity extends Activity {
         CharacterDB database = new CharacterDB(getApplicationContext());
         database.open();
         if(database.hasCharacter(id)) {
-            Log.d(TAG, "Character found in database");
             character = database.extractCharacter(id);
         } else {
-            Log.d(TAG, "Character not found in database");
             character = new Character("name", 0, 0, 0, 0,
                     new Avatar(this, "skeleton"), this);
             character.setId(characterId);
@@ -91,10 +93,8 @@ public class StartActivity extends Activity {
 
         UUID id;
         if (preferences.contains(KEY_ID)) {
-            Log.d(TAG, "id found in preferences");
             id = UUID.fromString(preferences.getString(KEY_ID, null));
         } else {
-            Log.d(TAG, "id not found in preferences");
             id = UUID.randomUUID();
             editor.putString(KEY_ID, id.toString());
             editor.commit();

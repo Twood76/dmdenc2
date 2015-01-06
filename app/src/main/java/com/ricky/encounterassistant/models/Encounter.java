@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,12 +15,12 @@ import java.util.UUID;
 public class Encounter {
     private static final String TAG = "Encounter";
     private static Encounter uniqueInstance;
-    private ArrayList<com.ricky.encounterassistant.models.Character> characters;
+    private List<com.ricky.encounterassistant.models.Character> characters;
     private Context appContext;
 
     public Encounter(Context c) {
         appContext = c;
-        characters = new ArrayList<Character>();
+        characters = new ArrayList<>();
     }
 
     public static Encounter getUniqueInstance(Context c) {
@@ -29,7 +30,7 @@ public class Encounter {
         return uniqueInstance;
     }
 
-    public ArrayList<Character> getCharacters() {
+    public List<Character> getCharacters() {
         return characters;
     }
 
@@ -42,8 +43,12 @@ public class Encounter {
     }
 
     public void addCharacter(Character character) {
-        Log.d(TAG, character.getId().toString());
+        removeCharacter(character.getId());
         characters.add(character);
+    }
+
+    public void addCharacterList(List<Character> characterList) {
+        characters = characterList;
     }
 
     public boolean hasCharacter(UUID id) {
@@ -56,9 +61,7 @@ public class Encounter {
     }
 
     public void removeCharacter(UUID id) {
-        Iterator<Character> itr = characters.iterator();
-        while(itr.hasNext()) {
-            Character character = itr.next();
+        for(Character character : characters) {
             if(character.getId() == id) {
                 characters.remove(character);
                 return;

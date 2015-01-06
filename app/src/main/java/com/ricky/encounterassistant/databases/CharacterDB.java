@@ -10,6 +10,8 @@ import android.util.Log;
 import com.ricky.encounterassistant.models.Avatar;
 import com.ricky.encounterassistant.models.Character;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -90,7 +92,6 @@ public class CharacterDB {
     public Character extractCharacter(UUID id) {
         Cursor cursor = getCharacterCursor(id);
         cursor.moveToFirst();
-        Log.d(TAG, "Cursor Column Count: " + cursor.getColumnCount());
         String name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
         int ac = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_AC));
         int max = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MAX_HP));
@@ -101,6 +102,25 @@ public class CharacterDB {
         character.setId(UUID.fromString(cursor.getString(cursor.getColumnIndexOrThrow(KEY_ID))));
         cursor.close();
         return character;
+    }
+
+    public List<Character> extractAllCharacter() {
+        Cursor cursor = database.rawQuery("select * from " + DATABASE_TABLE, null);
+        List<Character> list = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            UUID id = UUID.fromString(cursor.getString(cursor.getColumnIndexOrThrow(KEY_ID)));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
+            int ac = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_AC));
+            int max = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_MAX_HP));
+            int hp = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_HP));
+            int init = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_INIT));
+            String avatar = cursor.getString(cursor.getColumnIndexOrThrow(KEY_AVATAR));
+            Character character = new Character(name, ac, max, hp, init, new Avatar(context, avatar), context);
+            character.setId(id);
+            list.add(character);
+        }
+        cursor.close();
+        return list;
     }
 
     public boolean hasCharacter(UUID id) {

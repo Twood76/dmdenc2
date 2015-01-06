@@ -18,12 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ricky.encounterassistant.*;
+import com.ricky.encounterassistant.databases.CharacterDB;
 import com.ricky.encounterassistant.models.Character;
 import com.ricky.encounterassistant.models.Encounter;
 import com.ricky.encounterassistant.ui.dialogs.NewCharacterDialog;
 import com.ricky.encounterassistant.ui.activities.CharacterActivity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ricky on 10/11/2014.
@@ -33,7 +34,7 @@ public class CharacterListFragment extends ListFragment {
     private static final String DIALOG_NEW_CHARACTER = "new_character";
 
     private Encounter encounter;
-    private ArrayList<Character> characters;
+    private List<Character> characters;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,13 @@ public class CharacterListFragment extends ListFragment {
 
         if (requestCode == REQUEST_CHARACTER) {
             Character character = (Character) data.getSerializableExtra(NewCharacterDialog.EXTRA_CHARACTER);
+            // Send new character to database
+            CharacterDB db = new CharacterDB(getActivity().getApplicationContext());
+            db.open();
+            db.insertUpdateCharacter(character);
+            db.close();
+
+            // Send new character to encounter list
             Encounter.getUniqueInstance(getActivity()).addCharacter(character);
             Encounter.getUniqueInstance(getActivity()).sortCharacters();
             characters = Encounter.getUniqueInstance(getActivity()).getCharacters();
@@ -108,8 +116,11 @@ public class CharacterListFragment extends ListFragment {
         }
     }
 
+    /**
+     * Character Adapter Class to adapt a list of characters to a list view
+     */
     private class CharacterAdapter extends ArrayAdapter<Character> {
-        private CharacterAdapter(ArrayList<Character> characters) {
+        private CharacterAdapter(List<Character> characters) {
             super(getActivity(), 0, characters);
         }
 
@@ -125,13 +136,15 @@ public class CharacterListFragment extends ListFragment {
             TextView nameTextView = (TextView) convertView.findViewById(R.id.list_item_character_nameTextView);
             nameTextView.setText(character.getName());
 
-            TextView HPTextView = (TextView) convertView.findViewById(R.id.list_item_character_hpTextView);
-            HPTextView.setText(character.getHP() + "/" + character.getMaxHP());
+            TextView hpTextView = (TextView) convertView.findViewById(R.id.list_item_character_hpTextView);
+            hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
 
-            if (character.getMaxHP() == 0 || (character.getHP() < (character.getHP()/character.getMaxHP()))) {
-                HPTextView.setTextColor(Color.parseColor("#A80000"));
+            if(character.getHP() <= 0) {
+                hpTextView.setTextColor(Color.parseColor("#520000"));
+            } else if ((character.getHP() <= (character.getMaxHP()/2))) {
+                hpTextView.setTextColor(Color.parseColor("#A80000"));
             } else {
-                HPTextView.setTextColor(Color.parseColor("#59B31D"));
+                hpTextView.setTextColor(Color.parseColor("#59B31D"));
             }
 
             TextView initiativeTextView = (TextView) convertView.findViewById(R.id.list_item_character_initiativeTextView);
