@@ -2,6 +2,7 @@ package com.ricky.encounterassistant.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -153,9 +154,11 @@ public class CharacterActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         /*
-         * When returning from Character Edit, change details of the character
+         * When returning from Character Edit, change details of the character if the
+         * result code is ok, do nothing if it is cancelled, and delete if result code was
+         * delete
          */
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CHARACTER_EDIT) {
                 character.setName(data.getStringExtra(CharacterEditActivity.EXTRA_NAME));
                 character.setAC(data.getIntExtra(CharacterEditActivity.EXTRA_AC, 0));
@@ -173,8 +176,18 @@ public class CharacterActivity extends Activity {
                 Encounter.getUniqueInstance(this).sortCharacters();
                 return;
             }
-        } if (resultCode == RESULT_CANCELED) {
-            Log.d(TAG, "cancelled");
+        } if (resultCode == RESULT_FIRST_USER + CharacterEditActivity.RESULT_DELETE) {
+            Encounter.getUniqueInstance(getApplicationContext()).removeCharacter(character.getId());
+            CharacterDB db = new CharacterDB(getApplicationContext());
+            db.open();
+            db.removeCharacter(character.getId());
+            db.close();
+            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove(StartActivity.KEY_ID);
+            editor.commit();
+            finish();
         }
+
     }
 }

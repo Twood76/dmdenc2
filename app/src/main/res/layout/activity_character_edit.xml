@@ -135,13 +135,24 @@
             android:layout_column="1"/>
     </GridLayout>
 
-    <Button
-        android:layout_row="6"
-        android:layout_column="1"
-        android:text="Confirm"
-        android:id="@+id/character_edit_confirmButton"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
+        <Button
+            android:text="Delete"
+            android:id="@+id/character_edit_deleteButton"
+            android:layout_width="wrap_content"
+            android:onClick="deleteButton"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="Enter"
+            android:id="@+id/character_edit_confirmButton"
+            android:onClick="enterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

@@ -22,11 +22,14 @@ import java.util.UUID;
  */
 public class CharacterEditActivity extends Activity {
     private static final String TAG = "characterEditActivity";
+
     public static final String EXTRA_NAME = "com.ricky.encounterassistant.name";
     public static final String EXTRA_HEALTH = "com.ricky.encounterassistant.health";
     public static final String EXTRA_MAX_HEALTH = "com.ricky.encounterassistant.maxhealth";
     public static final String EXTRA_INITIATIVE = "com.ricky.encounterassistant.initiative";
     public static final String EXTRA_AC = "com.ricky.encounterassistant.ac";
+
+    public static final int RESULT_DELETE = 1;
 
     private EditText nameEditText;
     private EditText healthEditText;
@@ -34,6 +37,7 @@ public class CharacterEditActivity extends Activity {
     private EditText initiativeEditText;
     private EditText acEditText;
     private Button confirmButton;
+    private Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,27 +113,31 @@ public class CharacterEditActivity extends Activity {
         });
 
         confirmButton = (Button) findViewById(R.id.character_edit_confirmButton);
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (nameEditText.getText().toString().equals("") || maxHealthEditText.getText().toString().equals("") ||
-                        initiativeEditText.getText().toString().equals("") || acEditText.getText().toString().equals("")) {
-                    Toast toast = Toast.makeText(CharacterEditActivity.this, "Fill Out All Fields", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
+        deleteButton = (Button) findViewById(R.id.character_edit_deleteButton);
+    }
 
-                Intent intent = new Intent();
-                intent.putExtra(EXTRA_NAME, nameEditText.getText().toString());
-                intent.putExtra(EXTRA_HEALTH, Integer.parseInt(healthEditText.getText().toString()));
-                intent.putExtra(EXTRA_MAX_HEALTH, Integer.parseInt(maxHealthEditText.getText().toString()));
-                intent.putExtra(EXTRA_INITIATIVE, Integer.parseInt(initiativeEditText.getText().toString()));
-                intent.putExtra(EXTRA_AC, Integer.parseInt(acEditText.getText().toString()));
+    public void enterButton(View view) {
+        if (nameEditText.getText().toString().equals("") || maxHealthEditText.getText().toString().equals("") ||
+                initiativeEditText.getText().toString().equals("") || acEditText.getText().toString().equals("")) {
+            Toast toast = Toast.makeText(this, "Fill Out All Fields", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
 
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_NAME, nameEditText.getText().toString());
+        intent.putExtra(EXTRA_HEALTH, Integer.parseInt(healthEditText.getText().toString()));
+        intent.putExtra(EXTRA_MAX_HEALTH, Integer.parseInt(maxHealthEditText.getText().toString()));
+        intent.putExtra(EXTRA_INITIATIVE, Integer.parseInt(initiativeEditText.getText().toString()));
+        intent.putExtra(EXTRA_AC, Integer.parseInt(acEditText.getText().toString()));
+
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public void deleteButton(View view) {
+        setResult(RESULT_FIRST_USER + RESULT_DELETE);
+        finish();
     }
 
     @Override

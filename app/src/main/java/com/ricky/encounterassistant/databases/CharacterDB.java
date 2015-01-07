@@ -89,6 +89,11 @@ public class CharacterDB {
         }
     }
 
+    public void removeCharacter(UUID id) {
+        database.delete(DATABASE_TABLE,
+                KEY_ID + " = ?", new String[] {id.toString()});
+    }
+
     public Character extractCharacter(UUID id) {
         Cursor cursor = getCharacterCursor(id);
         cursor.moveToFirst();
