@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.ricky.encounterassistant.*;
 import com.ricky.encounterassistant.databases.CharacterDB;
 import com.ricky.encounterassistant.models.*;
-import com.ricky.encounterassistant.models.Character;
 
 import java.util.UUID;
 
@@ -105,28 +104,6 @@ public class CharacterActivity extends Activity {
         });
     }
 
-    private void updateCharacterInfo() {
-        nameTextView.setText(character.getName());
-        initiativeTextView.setText("Initiative: " + character.getInit());
-        hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
-        if(character.getHP() <= 0) {
-            hpTextView.setTextColor(Color.parseColor("#520000"));
-        } else if ((character.getHP() <= (character.getMaxHP()/2))) {
-            hpTextView.setTextColor(Color.parseColor("#A80000"));
-        } else {
-            hpTextView.setTextColor(Color.parseColor("#59B31D"));
-        }
-        acTextView.setText("Armor Class: " + character.getAC());
-        avatarImageView.setImageDrawable(character.getAvatarDrawable());
-    }
-
-    private void syncCharacterToDatabase() {
-        CharacterDB database = new CharacterDB(getApplicationContext());
-        database.open();
-        database.insertUpdateCharacter(character);
-        database.close();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -177,17 +154,43 @@ public class CharacterActivity extends Activity {
                 return;
             }
         } if (resultCode == RESULT_FIRST_USER + CharacterEditActivity.RESULT_DELETE) {
-            Encounter.getUniqueInstance(getApplicationContext()).removeCharacter(character.getId());
-            CharacterDB db = new CharacterDB(getApplicationContext());
-            db.open();
-            db.removeCharacter(character.getId());
-            db.close();
-            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.remove(StartActivity.KEY_ID);
-            editor.commit();
+            deleteCharacter();
             finish();
         }
 
+    }
+
+    private void updateCharacterInfo() {
+        nameTextView.setText(character.getName());
+        initiativeTextView.setText("Initiative: " + character.getInit());
+        hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
+        if(character.getHP() <= 0) {
+            hpTextView.setTextColor(Color.parseColor("#520000"));
+        } else if ((character.getHP() <= (character.getMaxHP()/2))) {
+            hpTextView.setTextColor(Color.parseColor("#A80000"));
+        } else {
+            hpTextView.setTextColor(Color.parseColor("#59B31D"));
+        }
+        acTextView.setText("Armor Class: " + character.getAC());
+        avatarImageView.setImageDrawable(character.getAvatarDrawable());
+    }
+
+    private void syncCharacterToDatabase() {
+        CharacterDB database = new CharacterDB(getApplicationContext());
+        database.open();
+        database.insertUpdateCharacter(character);
+        database.close();
+    }
+
+    private void deleteCharacter() {
+        Encounter.getUniqueInstance(getApplicationContext()).removeCharacter(character.getId());
+        CharacterDB db = new CharacterDB(getApplicationContext());
+        db.open();
+        db.removeCharacter(character.getId());
+        db.close();
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(StartActivity.KEY_ID);
+        editor.commit();
     }
 }
