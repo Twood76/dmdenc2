@@ -122,6 +122,9 @@ public class CharacterActivity extends Activity {
             intent.putExtra(EXTRA_CHARACTER_ID, getIntent().getSerializableExtra(EXTRA_CHARACTER_ID));
             startActivityForResult(intent, REQUEST_CHARACTER_EDIT);
             return true;
+        } if (id == R.id.action_delete) {
+            deleteCharacter();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,7 +185,7 @@ public class CharacterActivity extends Activity {
         database.close();
     }
 
-    private void deleteCharacter() {
+    public void deleteCharacter() {
         Encounter.getUniqueInstance(getApplicationContext()).removeCharacter(character.getId());
         CharacterDB db = new CharacterDB(getApplicationContext());
         db.open();

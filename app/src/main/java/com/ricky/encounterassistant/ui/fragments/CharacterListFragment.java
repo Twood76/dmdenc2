@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +35,8 @@ public class CharacterListFragment extends ListFragment {
     private static final int REQUEST_CHARACTER = 1;
     private static final String DIALOG_NEW_CHARACTER = "new_character";
 
+    private Button nextButton;
+
     private Encounter encounter;
     private List<Character> characters;
 
@@ -47,8 +51,27 @@ public class CharacterListFragment extends ListFragment {
 
         CharacterAdapter adapter = new CharacterAdapter(characters);
         setListAdapter(adapter);
+        ListAdapter listAdapter = getListAdapter();
+        /**
+         * If the list is not empty, color the selected item
+         */
+//        if (!listAdapter.isEmpty()) {
+//            View view = listAdapter.getView(encounter.getSelectedIndex(), null, null);
+//            view.setBackgroundColor(getResources().getColor(R.color.selected_color));
+//        }
 
         setRetainInstance(true);
+
+        /**
+         * Next button clicked, next character is highlighted in the list.
+         */
+        nextButton = (Button) getActivity().findViewById(R.id.encounter_nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                encounter.next();
+            }
+        });
     }
 
     @Override

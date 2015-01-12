@@ -28,8 +28,10 @@ public class StartActivity extends Activity {
     private static final String TAG = "StartActivity";
 
     public static final String KEY_ID = "id";
-    Button PCButton;
-    Button DMButton;
+
+    private Button PCButton;
+    private Button DMButton;
+
     public static UUID characterId;
     private static final int REQUEST_CHARACTER = 1;
 
@@ -38,23 +40,23 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        // Get device's character
+        characterId = getIdFromPreferences();
+        getCharacterFromDatabase(characterId);
+
+        // Set up encounter
+        CharacterDB db = new CharacterDB(getApplicationContext());
+        db.open();
+        List<Character> list = db.extractAllCharacter();
+        Encounter.getUniqueInstance(getApplicationContext()).addCharacterList(list);
+        Encounter.getUniqueInstance(getApplicationContext()).sortCharacters();
+        db.close();
+
         PCButton = (Button) findViewById(R.id.start_activity_pcButton);
         PCButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartActivity.this, CharacterActivity.class);
-
-                // Get device's character
-                characterId = getIdFromPreferences();
-                getCharacterFromDatabase(characterId);
-
-                // Set up encounter
-                CharacterDB db = new CharacterDB(getApplicationContext());
-                db.open();
-                List<Character> list = db.extractAllCharacter();
-                Encounter.getUniqueInstance(getApplicationContext()).addCharacterList(list);
-                Encounter.getUniqueInstance(getApplicationContext()).sortCharacters();
-                db.close();
 
                 intent.putExtra(CharacterActivity.EXTRA_CHARACTER_ID, characterId);
                 startActivityForResult(intent, REQUEST_CHARACTER);

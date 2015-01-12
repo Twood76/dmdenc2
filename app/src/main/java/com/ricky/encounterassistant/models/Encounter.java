@@ -15,12 +15,16 @@ import java.util.UUID;
 public class Encounter {
     private static final String TAG = "Encounter";
     private static Encounter uniqueInstance;
+
     private List<com.ricky.encounterassistant.models.Character> characters;
+    private int selected;
+
     private Context appContext;
 
     public Encounter(Context c) {
         appContext = c;
         characters = new ArrayList<>();
+        selected = 0;
     }
 
     public static Encounter getUniqueInstance(Context c) {
@@ -30,16 +34,16 @@ public class Encounter {
         return uniqueInstance;
     }
 
-    public List<Character> getCharacters() {
-        return characters;
-    }
-
     public Character getCharacter(UUID id) {
         for(Character character : characters) {
             if(character.getId().equals(id))
                 return character;
         }
         return null;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
     }
 
     public void addCharacter(Character character) {
@@ -74,6 +78,24 @@ public class Encounter {
     }
 
     public void sortCharacters() {
+        Character c = characters.get(selected);
         Collections.sort(characters, Collections.reverseOrder());
+        selected = characters.indexOf(c);
+    }
+
+    public int getSelectedIndex() {
+        return selected;
+    }
+
+    public void next() {
+        selected = (selected + 1) % characters.size();
+    }
+
+    public void previous() {
+        selected = (selected - 1) % characters.size();
+    }
+
+    public void reset() {
+        selected = 0;
     }
 }
