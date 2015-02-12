@@ -49,16 +49,8 @@ public class CharacterListFragment extends ListFragment {
         encounter = Encounter.getUniqueInstance(getActivity());
         characters = encounter.getCharacters();
 
-        CharacterAdapter adapter = new CharacterAdapter(characters);
+        final CharacterAdapter adapter = new CharacterAdapter(characters);
         setListAdapter(adapter);
-        ListAdapter listAdapter = getListAdapter();
-        /**
-         * If the list is not empty, color the selected item
-         */
-//        if (!listAdapter.isEmpty()) {
-//            View view = listAdapter.getView(encounter.getSelectedIndex(), null, null);
-//            view.setBackgroundColor(getResources().getColor(R.color.selected_color));
-//        }
 
         setRetainInstance(true);
 
@@ -70,6 +62,7 @@ public class CharacterListFragment extends ListFragment {
             @Override
             public void onClick(View view) {
                 encounter.next();
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -155,19 +148,28 @@ public class CharacterListFragment extends ListFragment {
             }
 
             Character character = getItem(position);
+            int selectedIndex = encounter.getSelectedIndex();
 
+            /**
+             * Indicate the selected item on the list
+             */
             TextView nameTextView = (TextView) convertView.findViewById(R.id.list_item_character_nameTextView);
             nameTextView.setText(character.getName());
+            if (position == selectedIndex) {
+                nameTextView.setTextColor(getResources().getColor(R.color.selected));
+            } else {
+                nameTextView.setTextColor(getResources().getColor(R.color.unselected));
+            }
 
             TextView hpTextView = (TextView) convertView.findViewById(R.id.list_item_character_hpTextView);
             hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
 
             if(character.getHP() <= 0) {
-                hpTextView.setTextColor(Color.parseColor("#520000"));
+                hpTextView.setTextColor(getResources().getColor(R.color.dead));
             } else if ((character.getHP() <= (character.getMaxHP()/2))) {
-                hpTextView.setTextColor(Color.parseColor("#A80000"));
+                hpTextView.setTextColor(getResources().getColor(R.color.bloody));
             } else {
-                hpTextView.setTextColor(Color.parseColor("#59B31D"));
+                hpTextView.setTextColor(getResources().getColor(R.color.healthy));
             }
 
             TextView initiativeTextView = (TextView) convertView.findViewById(R.id.list_item_character_initiativeTextView);

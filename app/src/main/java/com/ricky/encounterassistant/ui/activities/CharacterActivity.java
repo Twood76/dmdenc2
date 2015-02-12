@@ -168,11 +168,11 @@ public class CharacterActivity extends Activity {
         initiativeTextView.setText("Initiative: " + character.getInit());
         hpTextView.setText(character.getHP() + "/" + character.getMaxHP());
         if(character.getHP() <= 0) {
-            hpTextView.setTextColor(Color.parseColor("#520000"));
+            hpTextView.setTextColor(getResources().getColor(R.color.dead));
         } else if ((character.getHP() <= (character.getMaxHP()/2))) {
-            hpTextView.setTextColor(Color.parseColor("#A80000"));
+            hpTextView.setTextColor(getResources().getColor(R.color.bloody));
         } else {
-            hpTextView.setTextColor(Color.parseColor("#59B31D"));
+            hpTextView.setTextColor(getResources().getColor(R.color.healthy));
         }
         acTextView.setText("Armor Class: " + character.getAC());
         avatarImageView.setImageDrawable(character.getAvatarDrawable());

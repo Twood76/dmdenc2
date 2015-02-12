@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="selected">
+        #FFFFFF
+    </color>
+    <color name="unselected">
+        #000000
+    </color>
+    <color name="dead">
+        #520000
+    </color>
+    <color name="bloody">
+        #A80000
+    </color>
+    <color name="healthy">
+        #59B31D
+    </color>
+</resources>
