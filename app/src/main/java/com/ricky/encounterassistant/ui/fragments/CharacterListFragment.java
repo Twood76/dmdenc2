@@ -87,13 +87,17 @@ public class CharacterListFragment extends ListFragment {
 
         if (requestCode == REQUEST_CHARACTER) {
             Character character = (Character) data.getSerializableExtra(NewCharacterDialog.EXTRA_CHARACTER);
-            // Send new character to database
+            /**
+             * Send new character to database
+              */
             CharacterDB db = new CharacterDB(getActivity().getApplicationContext());
             db.open();
             db.insertUpdateCharacter(character);
             db.close();
 
-            // Send new character to encounter list
+            /**
+             * Send new character to encounter list
+             */
             Encounter.getUniqueInstance(getActivity()).addCharacter(character);
             Encounter.getUniqueInstance(getActivity()).sortCharacters();
             characters = Encounter.getUniqueInstance(getActivity()).getCharacters();
@@ -182,6 +186,8 @@ public class CharacterListFragment extends ListFragment {
             avatarImageView.setImageDrawable(character.getAvatarDrawable());
 
             return convertView;
+
+
         }
     }
 }

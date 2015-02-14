@@ -34,7 +34,6 @@ public class Character implements Serializable, Comparable<Character> {
         this.avatar = avatar;
         this.context = context;
         this.downed = false;
-
         this.equipment = new ArrayList<Equipment>();
     }
 

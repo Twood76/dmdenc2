@@ -7,12 +7,16 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ricky.encounterassistant.R;
+import com.ricky.encounterassistant.models.Character;
 import com.ricky.encounterassistant.models.*;
 
 import java.util.UUID;
@@ -36,6 +40,7 @@ public class CharacterEditActivity extends Activity {
     private EditText maxHealthEditText;
     private EditText initiativeEditText;
     private EditText acEditText;
+    private Spinner avatarSpinner;
     private Button confirmButton;
     private Button deleteButton;
 
@@ -46,7 +51,7 @@ public class CharacterEditActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         UUID id = (UUID) getIntent().getSerializableExtra(CharacterActivity.EXTRA_CHARACTER_ID);
-        com.ricky.encounterassistant.models.Character character = Encounter.getUniqueInstance(this).getCharacter(id);
+        final Character character = Encounter.getUniqueInstance(this).getCharacter(id);
 
         nameEditText = (EditText) findViewById(R.id.character_edit_nameEditText);
         nameEditText.setText(character.getName());
@@ -109,6 +114,24 @@ public class CharacterEditActivity extends Activity {
                     acEditText.setText("0");
                 }
                 return false;
+            }
+        });
+
+        /**
+         * Avatar Spinner used to select what image to display for the character.
+         */
+        avatarSpinner = (Spinner) findViewById(R.id.character_edit_avatarSpinner);
+        ArrayAdapter<String> avatarSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Avatar.avatarList);
+        avatarSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        avatarSpinner.setAdapter(avatarSpinnerAdapter);
+        avatarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Avatar avatar = new Avatar(getApplicationContext(), Avatar.avatarList[i]);
+                character.changeAvatar(avatar);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
