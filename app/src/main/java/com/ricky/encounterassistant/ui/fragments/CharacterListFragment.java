@@ -2,7 +2,6 @@ package com.ricky.encounterassistant.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -182,12 +180,10 @@ public class CharacterListFragment extends ListFragment {
             TextView ACTextView = (TextView) convertView.findViewById(R.id.list_item_character_acTextView);
             ACTextView.setText("AC: " + character.getAC());
 
-            ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.list_item_character_avatarImageView);
+            ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.list_item_avatar_avatarImageView);
             avatarImageView.setImageDrawable(character.getAvatarDrawable());
 
             return convertView;
-
-
         }
     }
 }

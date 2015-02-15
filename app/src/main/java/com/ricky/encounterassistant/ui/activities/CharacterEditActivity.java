@@ -8,11 +8,13 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,8 +59,6 @@ public class CharacterEditActivity extends Activity {
 
         nameEditText = (EditText) findViewById(R.id.character_edit_nameEditText);
         nameEditText.setText(character.getName());
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);   // Show Keyboard Automatically On Create
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);                                          //
         nameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -122,11 +122,13 @@ public class CharacterEditActivity extends Activity {
             }
         });
 
+
+
         /**
          * Avatar Spinner used to select what image to display for the character.
          */
         avatarSpinner = (Spinner) findViewById(R.id.character_edit_avatarSpinner);
-        ArrayAdapter<String> avatarSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Avatar.avatarList);
+        AvatarAdapter avatarSpinnerAdapter = new AvatarAdapter(Avatar.avatarList);
         avatarSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         avatarSpinner.setAdapter(avatarSpinnerAdapter);
         avatarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -142,8 +144,61 @@ public class CharacterEditActivity extends Activity {
 
         confirmButton = (Button) findViewById(R.id.character_edit_confirmButton);
         deleteButton = (Button) findViewById(R.id.character_edit_deleteButton);
+    } // End OnCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showKeyboard();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        showKeyboard();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideKeyboard();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        hideKeyboard();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * On Back Button pressed, ignore values in text fields and return to Character Activity.
+     */
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
+    }
+
+    /**
+     * On Enter Button pressed, values in text fields are synced with the character and return to Character Activity.
+     * @param view
+     */
     public void enterButton(View view) {
         if (nameEditText.getText().toString().equals("") || maxHealthEditText.getText().toString().equals("") ||
                 initiativeEditText.getText().toString().equals("") || acEditText.getText().toString().equals("")) {
@@ -168,24 +223,38 @@ public class CharacterEditActivity extends Activity {
         finish();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(this.findViewById(android.R.id.content).getWindowToken(), 0);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            setResult(RESULT_CANCELED);
-            finish();
+    private void showKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+    }
+
+    /**
+     * Adapter Class to show images of each avatar in the spinner
+     */
+    private class AvatarAdapter extends ArrayAdapter<String> {
+        private AvatarAdapter(String[] array) {
+            super(getApplicationContext(), 0, array);
         }
-        return super.onOptionsItemSelected(item);
-    }
 
-    @Override
-    public void onBackPressed() {
-        setResult(RESULT_CANCELED);
-        super.onBackPressed();
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater()
+                        .inflate(R.layout.list_item_avatar, null);
+            }
+            ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.list_item_avatar_avatarImageView);
+            Avatar avatar = new Avatar(getApplicationContext(), getItem(position));
+            avatarImageView.setImageDrawable(avatar.toDrawable());
+
+            TextView textView = (TextView) convertView.findViewById(R.id.list_item_avatar_nameTextView);
+            textView.setText(getItem(position));
+
+            return convertView;
+        }
     }
 }
